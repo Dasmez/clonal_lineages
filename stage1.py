@@ -1,3 +1,7 @@
+from graphviz import Digraph
+
+dot = Digraph()
+
 checklist = []
 maximum = []
 
@@ -38,17 +42,19 @@ str_list_to_int_list(maximum)
 maximum.sort()
 # print(maximum)
 
-with open('tree.dot', 'w') as ouf:
-    for element in maximum:
-        ouf.write(str(element))
-        ouf.write(' [style = filled, fillcolor = "#506bda"]')
-        ouf.write('\n')
-    for i in range(len(checklist)):
-        ouf.write(checklist[i][0])
-        ouf.write(' -> ')
-        ouf.write(checklist[i][1])
-        ouf.write(' [color = black, tooltip = "", penwidth = ""]')
-        ouf.write('\n')
+for element in maximum:
+    dot.node(str(element))
+for i in range(len(checklist)):
+    dot.edge(checklist[i][0], checklist[i][1])
+# print(dot.source)
+dot.render('test', view=True)
+dot.save('test.dot')
+# for i in range(len(checklist)):
+#     ouf.write(checklist[i][0])
+#     ouf.write(' -> ')
+#     ouf.write(checklist[i][1])
+#     ouf.write(' [color = black, tooltip = "", penwidth = ""]')
+#     ouf.write('\n')
 # r = 0
 # with open('result.txt') as file:
 #     for line in file:
